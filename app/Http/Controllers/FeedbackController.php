@@ -23,8 +23,6 @@ class FeedbackController extends Controller
     {
         $broadcaster = User::where('name', $username)->firstOrFail();
 
-        // TODO: Don't let a user submit feedback to their own channel.
-
         return view('user-feedback')->withBroadcaster($broadcaster);
     }
 
@@ -59,6 +57,13 @@ class FeedbackController extends Controller
         // Associate the song with the broadcaster's feedback
         $broadcaster->feedback()->attach($song);
         return redirect()->back();
+    }
+
+    public function clear()
+    {
+        auth()->user()->feedback()->detach();
+
+        return redirect('/feedback');
     }
 
     public function complete(Song $song) {

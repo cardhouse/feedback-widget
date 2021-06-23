@@ -21,8 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/{username}/feedback', [FeedbackController::class, 'show']);
-
 Route::get('/feedback/submit', [FeedbackController::class, 'create'])
     ->middleware('auth');
 Route::post('/feedback', [FeedbackController::class, 'store'])->middleware('auth');
@@ -33,11 +31,6 @@ Route::prefix('songs')->middleware('auth')->group(function () {
     Route::post('/', [SongController::class, 'store']);
 });
 
-Route::middleware('auth')->group(function () {
-    // Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
-    Route::get('/feedback', FeedbackWidget::class)->name('feedback');
-    Route::post('/feedback', [FeedbackController::class, 'submit']);
-});
 
 Route::get('/twitch/login', [TwitchOauthController::class, 'authenticate']);
 Route::get('/twitch/oauth/return', [TwitchOauthController::class, 'callback']);
@@ -45,3 +38,17 @@ Route::get('/twitch/oauth/return', [TwitchOauthController::class, 'callback']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('/force/{user}', function (App\Models\User $user) {
+    Auth::login($user);
+    return $user;
+});
+
+Route::middleware('auth')->group(function () {
+    // Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
+    Route::get('/feedback', FeedbackWidget::class)->name('feedback');
+    Route::get('/feedback/clear', [FeedbackController::class, 'clear']);
+    Route::post('/feedback', [FeedbackController::class, 'submit']);
+    Route::get('/{username}', [FeedbackController::class, 'show']);
+});
+
