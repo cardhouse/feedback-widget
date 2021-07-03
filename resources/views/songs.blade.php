@@ -9,7 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 @forelse($songs as $song)
-                    <x-song :song="$song" />
+                    <x-song
+                        :title="$song->title"
+                        :url="$song->url"
+                        :platform="$song->platform"
+                    />
                 @empty
                     <li>You have no songs.</li>
                 @endforelse

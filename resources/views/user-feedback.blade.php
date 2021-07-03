@@ -9,7 +9,7 @@
         <div class="w-2/3 pr-2">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 @forelse($broadcaster->feedback()->wherePivot('completed', false)->with('artist')->get() as $song)
-                <x-song :title="$song->title" :artist="$song->artist->name" />
+                    <x-song :title="$song->title" :artist="$song->artist->name" />
                 @empty
                     <li>There are no songs in your feedback</li>
                 @endforelse
