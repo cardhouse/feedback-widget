@@ -28,6 +28,6 @@ class TwitchOauthController extends Controller
         $auth->save();
 
         \Auth::login($auth);
-        return redirect('dashboard');
+        return redirect()->intended('dashboard');
         }
 }
