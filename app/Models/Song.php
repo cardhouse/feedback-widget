@@ -19,10 +19,27 @@ class Song extends Model
     public function embedCode() : string
     {
         // TODO: Parse out what kind of embed code we need
+        switch ($this->platform) {
+            case 'soundcloud':
+                $response = Http::accept('application/json')
+                    ->get("https://soundcloud.com/oembed?url={$this->url}&maxheight=370&show_comments=false");
+                return $response->json('html');
+                break;
+            
+            case 'youtube':
+                $queryString = parse_url($this->url, PHP_URL_QUERY);
+                preg_match('/v=([a-z0-9_\-]+)/i', $queryString, $matches);
+                
+                return '<iframe id="ytplayer" type="text/html" width="640" height="360"
+                src="https://www.youtube.com/embed/'.$matches[1].'"
+                frameborder="0"></iframe>';
+                break;
+            
+            default:
+                return '<a href="'.$this->url.'" target="_blank">'.$this->url.'</a>';
+                break;
+        }
         // Make API call or something to get embed html
-        $response = Http::accept('application/json')->get("https://soundcloud.com/oembed?url={$this->url}");
-        // return html
-        return $response->json('html');
         
     }
 }
