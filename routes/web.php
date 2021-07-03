@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/force/{user}', function (App\Models\User $user) {
     Auth::login($user);
     return $user;
-});
+})->middleware('local');
 
 Route::middleware('auth')->group(function () {
     // Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
