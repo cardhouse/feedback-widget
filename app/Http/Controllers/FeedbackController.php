@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Feedback;
 use App\Models\User;
 use App\Models\Song;
 use Illuminate\Http\Request;
@@ -47,13 +46,13 @@ class FeedbackController extends Controller
         $song = Song::where('id', $request->input('song_id'))->firstOrFail();
         // Make sure the user owns the song
         if (auth()->id() != $song->user_id) {
-            dd(auth()->id(), $song);
+            abort(403);
         }
 
         // Get the broadcaster the feedback is submitted to
         $broadcaster_id = $request->input('broadcaster_id');
         $broadcaster = User::where('id', $broadcaster_id)->firstOrFail();
-        
+
         // Associate the song with the broadcaster's feedback
         $broadcaster->feedback()->attach($song);
         return redirect()->back();
@@ -66,7 +65,8 @@ class FeedbackController extends Controller
         return redirect('/feedback');
     }
 
-    public function complete(Song $song) {
+    public function complete(Song $song)
+    {
         // Remove the song from the Broadcaster's feedback.
         auth()->user()->feedback()->detach($song);
 

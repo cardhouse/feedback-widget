@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Feedback;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FeedbackFactory extends Factory
@@ -22,9 +23,9 @@ class FeedbackFactory extends Factory
     public function definition()
     {
         return [
-            'broadcaster_id' => 1,
+            'broadcaster_id' => User::factory(),
             'url' => $this->faker->url,
-            'viewer_id' => 1,
+            'viewer_id' => User::factory(),
             'platform' => $this->faker->word
         ];
     }

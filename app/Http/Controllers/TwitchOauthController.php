@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class TwitchOauthController extends Controller
@@ -17,7 +16,8 @@ class TwitchOauthController extends Controller
     {
         $user = Socialite::driver('twitch')->user();
         $auth = User::whereEmail($user->email)->first();
-        if(!$auth) {
+        
+        if (!$auth) {
             $auth = new User();
             $auth->name = $user->nickname;
             $auth->email = $user->email;
@@ -25,9 +25,12 @@ class TwitchOauthController extends Controller
         } else {
             $auth->name = $user->nickname;
         }
-        $auth->save();
+
+        if ($auth->isDirty()) {
+            $auth->save();
+        }
 
         \Auth::login($auth);
         return redirect()->intended('dashboard');
-        }
+    }
 }

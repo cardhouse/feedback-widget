@@ -10,7 +10,7 @@ class Song extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['user_id'];
 
     public function artist() {
         return $this->belongsTo(User::class, 'user_id');
@@ -39,7 +39,5 @@ class Song extends Model
                 return '<a href="'.$this->url.'" target="_blank">'.$this->url.'</a>';
                 break;
         }
-        // Make API call or something to get embed html
-        
     }
 }
