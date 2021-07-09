@@ -6,15 +6,15 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="flex max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="w-3/4 bg-white overflow-hidden shadow-xl sm:rounded-lg mr-3">
                 @forelse($songs as $song)
                     @livewire('song', ['track' => $song], key($song->id))
                 @empty
                     <li>You have no songs.</li>
                 @endforelse
-                <x-song-form />
             </div>
+            <x-song-form />
         </div>
     </div>
 </x-app-layout>

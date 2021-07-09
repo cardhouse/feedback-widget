@@ -1,6 +1,6 @@
 <div>
     <h1>Create a song</h1>
-    <form action="{{ url('/songs') }}" method="POST">
+    <form action="{{ url('/songs') }}" method="POST" class="flex flex-col justify between h-64">
         @csrf
 
         <label for="title">Title</label>
@@ -16,6 +16,6 @@
             <option value="discord">Discord</option>
         </select>
         
-        <input type="submit" value="Submit" />
+        <input class="rounded-md px-4 py-2 my-2 bg-blue-500 hover:bg-blue-700 border-blue-600 hover:border-blue-800 hover:shadow-sm text-white w-full" type="submit" value="Submit" />
     </form>
 </div>
