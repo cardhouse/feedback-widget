@@ -4,19 +4,28 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Feedback;
+use App\Models\Song as Track;
 
 class Song extends Component
 {
-    public $song;
+    public $track;
+    public $active;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Song $song)
+    public function mount(Track $track)
     {
-        $this->song = $song;
+        $this->track = $track;
+        $this->active = true;
+    }
+
+    public function trash(Track $track)
+    {
+        $this->active = false;
+        $track->delete();
     }
 
     public function render()
