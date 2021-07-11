@@ -1,21 +1,17 @@
 <div class="py-12">
-    <div class="max-w-7xl h-screen lg:h-96 mx-auto sm:px-6 lg:px-8 flex">
-        <div class="w-1/4 bg-white overflow-hidden shadow-xl sm:rounded-lg">
-            @forelse($songList as $key => $song)
-                <x-song 
-                    wire:click="setCurrentSong({{ $song->id }}, {{ $key }})" :title="$song->title"
-                    :artist="$song->artist->name" />
-            @empty
-                <li>There are no songs in your feedback</li>
-            @endforelse
+    <div class="h-screen md:h-96 mx-auto sm:px-6 md:px-8 flex">
+        <div class="flex flex-col justify-between md:flex-row w-full bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="flex flex-col w-64">
+                @forelse($songList as $key => $song)
+                    <x-song wire:click="setCurrentSong({{ $song->id }}, {{ $key }})" :title="$song->title" :artist="$song->artist->name" />
+                @empty
+                    <span>There are no songs in your feedback</span>
+                @endforelse
+            </div>
+            <h1 wire:loading wire:target="currentSong">Loading...</h1>
+            @if ($currentSong)
+                <x-current-track wire:loading.hidden wire:target="currentSong" class="p-3" :song="$currentSong" />
+            @endif
         </div>
-
-        @if ($currentSong)
-            <x-current-track class="p-3" :song="$currentSong" />
-        @else
-            <section class="px-3 font-lg font-bold">
-                <span>Select a song to give feedback</span>
-            </section>
-        @endif
     </div>
 </div>

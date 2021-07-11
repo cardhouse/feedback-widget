@@ -13,7 +13,7 @@ class AddCompletedColumnToPivotTable extends Migration
      */
     public function up()
     {
-        Schema::table('song_user', function (Blueprint $table) {
+        Schema::table('feedback_song', function (Blueprint $table) {
             $table->boolean('completed')->default(false);
         });
     }
@@ -25,7 +25,7 @@ class AddCompletedColumnToPivotTable extends Migration
      */
     public function down()
     {
-        Schema::table('song_user', function (Blueprint $table) {
+        Schema::table('feedback_song', function (Blueprint $table) {
             $table->dropColumn('completed');
         });
     }

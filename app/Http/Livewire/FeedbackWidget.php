@@ -10,21 +10,22 @@ class FeedbackWidget extends Component
 {
     public $songList;
     public $currentSong;
+    public $user;
 
     public function mount()
     {
-        $this->songList = Auth::user()
-            ->feedback()
+        $this->user = Auth::user();
+        $this->songList = $this->user->feedback->songs()
             ->wherePivot('completed', false)
             ->with('artist')
             ->get();
-            
+
         $this->currentSong = null;
     }
 
     public function completeFeedback(Song $song)
     {
-        Auth::user()->feedback()->updateExistingPivot($song->id, [
+        $this->user->feedback->songs()->updateExistingPivot($song->id, [
             'completed' => true
         ]);
         $this->currentSong = null;

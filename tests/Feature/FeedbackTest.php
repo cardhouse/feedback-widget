@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Feedback;
 use App\Models\Song;
 use App\Models\User;
 
@@ -28,7 +27,7 @@ class FeedbackTest extends TestCase
         $this->actingAs($viewer);
 
         $this->post('/feedback', $input);
-        $this->assertCount(1, $broadcaster->feedback);
+        $this->assertCount(1, $broadcaster->feedback->songs);
     }
 
     /** @test */

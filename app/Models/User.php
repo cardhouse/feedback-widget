@@ -66,7 +66,6 @@ class User extends Authenticatable
 
     public function feedback()
     {
-        return $this->belongsToMany(Song::class)
-            ->withPivot('completed');
+        return $this->hasOne(Feedback::class);
     }
 }

@@ -1,22 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Feedback') }}
+            {{ __($broadcaster->name) }}
         </h2>
     </x-slot>
 
-    <div class="p-3 flex">
-        <div class="w-2/3 pr-2">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                @forelse($broadcaster->feedback()->wherePivot('completed', false)->with('artist')->get() as $song)
-                    <x-song :title="$song->title" :artist="$song->artist->name" />
-                @empty
-                    <li>There are no songs in your feedback</li>
-                @endforelse
-            </div>
-        </div>
-        @if(Illuminate\Support\Facades\Gate::forUser(auth()->user())->allows('submit-feedback', $broadcaster))
-            <x-feedback-submission :broadcaster="$broadcaster" />
-        @endif
-    </div>
+    @livewire('broadcaster-queue', ['broadcaster' => $broadcaster], key($broadcaster->id))
 </x-app-layout>

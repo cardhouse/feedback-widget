@@ -13,8 +13,8 @@ class CreateSongUserPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('song_user', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+        Schema::create('feedback_song', function (Blueprint $table) {
+            $table->integer('feedback_id')->unsigned();
             $table->integer('song_id')->unsigned();
         });
     }
@@ -26,6 +26,6 @@ class CreateSongUserPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('song_user_pivot');
+        Schema::dropIfExists('feedback_song_pivot');
     }
 }

@@ -54,13 +54,13 @@ class FeedbackController extends Controller
         $broadcaster = User::where('id', $broadcaster_id)->firstOrFail();
 
         // Associate the song with the broadcaster's feedback
-        $broadcaster->feedback()->attach($song);
+        $broadcaster->feedback->songs()->attach($song);
         return redirect()->back();
     }
 
     public function clear()
     {
-        auth()->user()->feedback()->detach();
+        auth()->user()->feedback->songs()->detach();
 
         return redirect('/feedback');
     }
@@ -68,7 +68,7 @@ class FeedbackController extends Controller
     public function complete(Song $song)
     {
         // Remove the song from the Broadcaster's feedback.
-        auth()->user()->feedback()->detach($song);
+        auth()->user()->feedback->songs()->detach($song);
 
         return redirect('/feedback');
     }

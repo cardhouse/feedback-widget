@@ -1,8 +1,9 @@
-<div>
-    {{ $song->url }} on {{ $song->platform }}
-    @if($song->feedback->completed)
-    Feedback already given.
-    @else
-        <x-jet-button wire:click="critiqued">Give Feedback</x-jet-button>
-    @endif
+<div x-data="{ open: @entangle('active')}" x-show="open" class="p-3 bg-white hover:bg-gray-300 cursor-pointer">
+    <div >
+        <div class="flex items-middle justify-between">
+            <h1 class="font-bold">{{ $track->title }}</h1>
+            <button type="button" wire:click="trash({{ $track }})">Delete</button>
+        </div>
+        {{ $track->url }}<span>on {{ $track->platform }}</span>
+    </div>
 </div>

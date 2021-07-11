@@ -13,11 +13,11 @@ class Feedback extends Model
 
     public function broadcaster()
     {
-        return $this->belongsTo(User::class, 'broadcaster_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function viewer()
+    public function songs()
     {
-        return $this->belongsTo(User::class, 'viewer_id');
+        return $this->belongsToMany(Song::class)->withPivot('completed');
     }
 }

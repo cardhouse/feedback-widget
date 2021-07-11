@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Song;
 
 class SongController extends Controller
@@ -34,7 +35,11 @@ class SongController extends Controller
     }
 
     public function destroy(Song $song) {
-        // Delete the song
-        // Redirect back to index page
+        if(Auth::id() != $song->artist->id)
+        {
+            abort(403);
+        }
+        $song->delete();
+        return redirect('/songs');
     }
 }

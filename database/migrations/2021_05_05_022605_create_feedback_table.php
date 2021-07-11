@@ -15,10 +15,8 @@ class CreateFeedbackTable extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->integer('broadcaster_id')->unsigned();
-            $table->integer('viewer_id')->unsigned();
-            $table->string('url');
-            $table->string('platform');
+            $table->integer('user_id')->unsigned();
+            $table->boolean('open')->default(false);
             $table->timestamps();
         });
     }

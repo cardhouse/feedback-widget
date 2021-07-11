@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -22,6 +23,8 @@ class TwitchOauthController extends Controller
             $auth->name = $user->nickname;
             $auth->email = $user->email;
             $auth->twitch_id = $user->id;
+            $auth->save();
+            Feedback::create(['user_id' => $auth->id]);
         } else {
             $auth->name = $user->nickname;
         }

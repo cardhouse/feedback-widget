@@ -11,4 +11,5 @@
     @if ($attributes->has('platform'))
         <span>on {{ $platform }}</span>
     @endif
+    {{ $slot }}
 </div>

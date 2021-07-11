@@ -32,12 +32,17 @@ class Song extends Model
                 
                 return '<iframe id="ytplayer" type="text/html" width="640" height="360"
                 src="https://www.youtube.com/embed/'.$matches[1].'"
-                frameborder="0"></iframe>';
+                frameborder="0" allowfullscreen=true></iframe>';
                 break;
             
             default:
                 return '<a href="'.$this->url.'" target="_blank">'.$this->url.'</a>';
                 break;
         }
+    }
+
+    public function feedback()
+    {
+        return $this->belongsToMany(Feedback::class);
     }
 }
