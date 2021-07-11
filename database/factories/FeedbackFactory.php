@@ -23,10 +23,8 @@ class FeedbackFactory extends Factory
     public function definition()
     {
         return [
-            'broadcaster_id' => User::factory(),
-            'url' => $this->faker->url,
-            'viewer_id' => User::factory(),
-            'platform' => $this->faker->word
+            'user_id' => User::factory(),
+            'open' => false,
         ];
     }
 }

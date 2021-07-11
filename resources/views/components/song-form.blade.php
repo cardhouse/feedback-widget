@@ -1,6 +1,6 @@
 <div>
     <h1>Create a song</h1>
-    <form action="{{ url('/songs') }}" method="POST" class="flex flex-col justify between h-64">
+    <form class="flex flex-col justify-between items-center" action="{{ url('/songs') }}" method="POST">
         @csrf
 
         <label for="title">Title</label>
