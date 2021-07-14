@@ -15,7 +15,13 @@
             </div>
             <h1 wire:loading wire:target="currentSong">Loading...</h1>
             @if ($currentSong)
-                <x-current-track wire:loading.hidden wire:target="currentSong" class="p-3" :song="$currentSong" />
+                <x-current-track wire:loading.hidden wire:target="currentSong" class="p-3" :song="$currentSong">
+                    @if ($liked)
+                        <button wire:click="toggleLike">(thumbs up)</button>
+                    @else
+                        <button wire:click="toggleLike">Like</button>
+                    @endif
+                </x-current-track>
             @endif
         </div>
     </div>

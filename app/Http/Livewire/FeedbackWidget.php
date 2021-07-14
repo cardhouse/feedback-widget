@@ -9,10 +9,11 @@ use App\Models\Song;
 
 class FeedbackWidget extends Component
 {
+    public $user;
     public $songList;
     public $currentSong;
-    public $user;
     public $note;
+    public $liked;
 
     public function mount()
     {
@@ -23,6 +24,7 @@ class FeedbackWidget extends Component
             ->get();
 
         $this->currentSong = null;
+        $this->liked = false;
     }
 
     public function completeFeedback(Song $song)
@@ -31,13 +33,19 @@ class FeedbackWidget extends Component
             'completed' => true
         ]);
         if ($this->note !== null) {
-            $note = Note::create([
+            Note::create([
                 'user_id' => $this->user->id,
                 'song_id' => $this->currentSong->artist->id,
                 'body' => $this->note
             ]);
             $this->note = null;
         }
+        $this->currentSong->total_plays += 1;
+        if ($this->liked) {
+            $this->currentSong->likes += 1;
+            $this->liked = false;
+        }
+        $this->currentSong->save();
         $this->currentSong = null;
     }
 
@@ -56,6 +64,11 @@ class FeedbackWidget extends Component
     {
         $this->user->feedback->open = ! $this->user->feedback->open;
         $this->user->feedback->save();
+    }
+
+    public function toggleLike()
+    {
+        $this->liked = ! $this->liked;
     }
 
     public function render()

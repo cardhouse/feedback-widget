@@ -4,6 +4,7 @@
     </h1>
     {!! $song->embedCode() !!}
     <textarea wire:model="note" rows=5 class="resize-y" placeholder="Enter feedback"></textarea>
+    {{ $slot }}
     <button class="w-full py-2 bg-green-700 rounded-b" type="button" wire:click="completeFeedback({{ $song->id }})">
         Feedback Complete
     </button>

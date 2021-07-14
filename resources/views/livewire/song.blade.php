@@ -6,6 +6,7 @@
         </div>
         {{ $track->url }}<span>on {{ $track->platform }}</span>
         <br>
+        <p>Liked {{ $track->likes }} out of {{ $track->total_plays }} plays</p>
         @forelse ($track->notes as $note)
             <ul>
                 <li>{{ $note->user->name }}: {{ $note->body }}</li>

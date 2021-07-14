@@ -45,4 +45,9 @@ class Song extends Model
     {
         return $this->belongsToMany(Feedback::class);
     }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
 }
