@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Note;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Song;
@@ -11,6 +12,7 @@ class FeedbackWidget extends Component
     public $songList;
     public $currentSong;
     public $user;
+    public $note;
 
     public function mount()
     {
@@ -28,6 +30,14 @@ class FeedbackWidget extends Component
         $this->user->feedback->songs()->updateExistingPivot($song->id, [
             'completed' => true
         ]);
+        if ($this->note !== null) {
+            $note = Note::create([
+                'user_id' => $this->user->id,
+                'song_id' => $this->currentSong->artist->id,
+                'body' => $this->note
+            ]);
+            $this->note = null;
+        }
         $this->currentSong = null;
     }
 

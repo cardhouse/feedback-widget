@@ -5,5 +5,13 @@
             <button type="button" wire:click="trash({{ $track }})">Delete</button>
         </div>
         {{ $track->url }}<span>on {{ $track->platform }}</span>
+        <br>
+        @forelse ($track->notes as $note)
+            <ul>
+                <li>{{ $note->user->name }}: {{ $note->body }}</li>
+            </ul>
+        @empty
+            No feedback
+        @endforelse
     </div>
 </div>
