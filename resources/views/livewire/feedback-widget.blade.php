@@ -1,4 +1,9 @@
 <div class="py-12">
+    @if ($this->feedbackOpen())
+        <button wire:click="toggleFeedbackOpen">Close feedback</button>
+    @else
+        <button wire:click="toggleFeedbackOpen">Open feedback</button>
+    @endif
     <div class="h-screen md:h-96 mx-auto sm:px-6 md:px-8 flex">
         <div class="flex flex-col justify-between md:flex-row w-full bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="flex flex-col w-64">

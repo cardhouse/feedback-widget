@@ -31,10 +31,21 @@ class FeedbackWidget extends Component
         $this->currentSong = null;
     }
 
+    public function feedbackOpen()
+    {
+        return $this->user->feedback->open;
+    }
+
     public function setCurrentSong(Song $song, $key)
     {
         $this->songList->forget($key);
         $this->currentSong = $song;
+    }
+
+    public function toggleFeedbackOpen()
+    {
+        $this->user->feedback->open = ! $this->user->feedback->open;
+        $this->user->feedback->save();
     }
 
     public function render()

@@ -28,7 +28,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('submit-feedback', function (User $user, User $broadcaster) {
-            return $user->id != $broadcaster->id;
+            return (
+                $user->id != $broadcaster->id
+                && $broadcaster->feedback->open
+            );
         });
     }
 }
