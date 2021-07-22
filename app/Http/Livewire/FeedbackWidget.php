@@ -35,7 +35,7 @@ class FeedbackWidget extends Component
         if ($this->note !== null) {
             Note::create([
                 'user_id' => $this->user->id,
-                'song_id' => $this->currentSong->artist->id,
+                'song_id' => $this->currentSong->id,
                 'body' => $this->note
             ]);
             $this->note = null;
