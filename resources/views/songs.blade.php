@@ -13,6 +13,7 @@
                 @empty
                     <li>You have no songs.</li>
                 @endforelse
+                {{ $songs->links() }}
             </div>
             <x-song-form />
         </div>
